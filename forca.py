@@ -3,8 +3,6 @@ import random
 
 def jogar():
 
-
-
     palavra_secreta = carrega_palavra_secreta()
     letras_acertadas = inicializa_letras_acertadas(palavra_secreta)
     letras_faltantes = letras_acertadas.count("_")
@@ -15,7 +13,6 @@ def jogar():
 
     imprime_mensagem_abertura()
     imprime_mensagem_status(letras_faltantes, letras_acertadas,erros)
-
 
     # gameloop
     while (not enforcou and not acertou):
@@ -28,11 +25,8 @@ def jogar():
             erros += 1
             desenha_forca(erros)
 
-
-        #acertou = letras_acertadas.count("_") == 0
         acertou = "_" not in letras_acertadas
         enforcou = erros == 7
-
         imprime_mensagem_status(letras_faltantes, letras_acertadas,erros)
 
     if (acertou):
@@ -41,10 +35,10 @@ def jogar():
         imprime_mensagem_derrota(palavra_secreta)
 
     print("Fim do jogo")
-    #print(palavra_final)
 
-def carrega_palavra_secreta():
-    arquivo = open("palavras.txt","r")
+
+def carrega_palavra_secreta(primeira_linha_valida=0,nome_do_arquivo="palavras.txt"):
+    arquivo = open(nome_do_arquivo,"r")
     palavras = []
 
     for linha in arquivo:
@@ -52,7 +46,7 @@ def carrega_palavra_secreta():
         palavras.append(linha)
 
     arquivo.close()
-    numero = random.randrange(0, len(palavras))
+    numero = random.randrange(primeira_linha_valida, len(palavras))
 
     palavra_secreta = palavras[numero].upper()
     return palavra_secreta
